@@ -40,23 +40,23 @@ def main():
             else:
                 print('\t*** ERROR: unmount unsuccessful ***\n\n')
         else:
-            print('\tbackup in progress... [{0} {1}]\n\n'.format(date,time))
+            print('\tbackup in progress... [{0} {1}]\n\tTrying again in 30min...\n\n'.format(date,time))
             # start a timeout to run this again after 30min
             signal.setitimer(signal.ITIMER_REAL, 1800)
 
     else :
 
-        if time1 == time:
-            print('##########################################################\n\tMounting drive... [{0} {1}]\n##########################################################\n'.format(date,time))
-            os.system('sudo mount ' + dev + ' ' + backUpDir)
+        # if time1 == time:
+        print('##########################################################\n\tMounting drive... [{0} {1}]\n##########################################################\n'.format(date,time))
+        os.system('sudo mount ' + dev + ' ' + backUpDir)
 
-            ISMOUNTED = os.popen("grep {0} /proc/mounts | awk {1}".format(dev, "'{ print $2 }'")).read().replace('\n', '')
+        ISMOUNTED = os.popen("grep {0} /proc/mounts | awk {1}".format(dev, "'{ print $2 }'")).read().replace('\n', '')
 
-            print('\tDirectory: %s' % ISMOUNTED)
-            if ISMOUNTED == backUpDir:
-                print('\tDrive mounted correctly [{0} {1}]\n\n'.format(date,time))
-            else:
-                print('\tDrive failed to mount [{0} {1}]\n\n'.format(date,time))
+        print('\tDirectory: %s' % ISMOUNTED)
+        if ISMOUNTED == backUpDir:
+            print('\tDrive mounted correctly [{0} {1}]\n\n'.format(date,time))
+        else:
+            print('\tDrive failed to mount [{0} {1}]\n\n'.format(date,time))
 
     sys.exit()
 
