@@ -20,7 +20,7 @@ def main():
     if os.popen('grep {0} /proc/mounts'.format(dev)).read():
         print('*********************************************************\n\tDrive is mounted... [{0} {1}]\n##########################################################\n'.format(date,time))
 
-        proc = os.popen("grep {0} /proc/mounts | awk '{ print $2 }'".format(dev)).read()
+        proc = os.popen("grep {0} /proc/mounts | awk {1}".format(dev, "'{ print $2 }'")).read()
         print('\tDirectory: %s' % proc)
 
         proc = os.popen("ps -ef | grep 'encfs --extpass=backintime' | grep -v 'grep'").read()
@@ -28,7 +28,7 @@ def main():
             print('\tUnmounting drive...')
             os.system('sudo umount %s' % backUpDir)
 
-            ISMOUNTED = os.popen("grep {0} /proc/mounts | awk '{ print $2 }'".format(dev)).read().replace('\n', '')
+            ISMOUNTED = os.popen("grep {0} /proc/mounts | awk {1}".format(dev, "'{ print $2 }'")).read().replace('\n', '')
             if ISMOUNTED == '':
                 print('\tUnmounting successful...\n\n')
             else:
@@ -40,7 +40,7 @@ def main():
         print('##########################################################\n\tMounting drive... [{0} {1}]\n##########################################################\n'.format(date,time))
         os.system('sudo mount ' + dev + ' ' + backUpDir)
 
-        ISMOUNTED = os.popen("grep {0} /proc/mounts | awk '{ print $2 }'".format(dev)).read().replace('\n', '')
+        ISMOUNTED = os.popen("grep {0} /proc/mounts | awk {1}".format(dev, "'{ print $2 }'")).read().replace('\n', '')
 
         print('\tDirectory: %s' % ISMOUNTED)
         if ISMOUNTED == backUpDir:
