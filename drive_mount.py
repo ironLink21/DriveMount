@@ -14,7 +14,7 @@ def main():
     date = datetime.now().date().strftime('%m-%d-%y')
     time = datetime.now().time().strftime('%H:%M')
     start = datetime.strptime('19:50','%H:%M').strftime('%H:%M')
-    end = datetime.strptime('22:50','%H:%M').strftime('%H:%M')
+    end = datetime.strptime('20:50','%H:%M').strftime('%H:%M')
     now_time = datetime.now().time().strftime('%H:%M')
 
     sys.stdout = open(log_file, 'a')
